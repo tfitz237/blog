@@ -1,0 +1,53 @@
+body {
+	background: #333;
+  }
+  .modal.bottom-sheet {
+	max-height: 50%;
+  }
+  
+  .embedly-embed {
+  	width: 100%;
+  	height: 100%;
+  }
+  
+  .card-reveal.post-card {
+  	padding: 0 ;
+  }
+  .post-card button {
+  	position:absolute;
+  	top: 5px;
+  	right:5px;
+  	z-index: 3;
+  }
+  .post-card div, .post-card img {
+  	height:100%;
+  	overflow-y: hidden;
+  	width:100%;
+  	z-index: 0;
+  }
+  
+  
+  
+  .post-menu-link {
+  	text-shadow: 3px 0px rgba(0,0,0,.9);
+  	position:absolute;
+  	top: 5px;
+  	left: 5px;
+  	z-index: 2;
+  	
+  }
+  
+  .card-content .card-title.music-title {
+  	font-size:18px;
+  	line-height: 24px;
+  	
+  }
+  
+  .card.x-small {
+      height:150px;
+      position: relative;
+  }
+  .card.x-small .card-content {
+      max-height:100%;
+      overflow:hidden;
+  }
