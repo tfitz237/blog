@@ -22,7 +22,7 @@ function PostCtrl($scope, $meteor,$sce, $http) {
 	function addPost(type, post) {
 		if(post._id == undefined) {
 			post.type = type;
-			if(post.type == 'music') {
+			if(post.type == 'music' || post.type == 'link') {
 			$http({method: 'GET', url: 'https://api.embedly.com/1/oembed?key=afc044c2a50440c0bd8216adddc728f2&url='+post.url})
 				.then(function successCallBack(response) {
 				post.embed = response.data;
@@ -36,10 +36,11 @@ function PostCtrl($scope, $meteor,$sce, $http) {
 			}
 		}
 		else {
-			if(post.type == 'music') {
+			if(post.type == 'music' || post.type =='link') {
 			$http({method: 'GET', url: 'https://api.embedly.com/1/oembed?key=afc044c2a50440c0bd8216adddc728f2&url='+post.url})
 				.then(function successCallBack(response) {
 				post.embed = response.data;
+				console.log(post.embed);
 				for (var i = 0; i < $scope.posts.length; i++) {
 					if($scope.posts[i]._id == post._id) {
 						$scope.posts[i] = post;

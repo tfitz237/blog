@@ -32,7 +32,7 @@
 						
 			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}">
 				</div>
-				<div class="card-content activator">
+				<div class="card-content activator post-content">
 				  	<span class="card-title activator grey-text text-darken-4 music-title">
 				  		<div class="row">
 				  			<div class="col s11">{{post.embed.title}}</div>
@@ -48,6 +48,34 @@
 
 				</div>
 			  </div>
+			<div class="card small cyan lighten-2" ng-if="post.type == 'link'">
+				<dropdown id="{{$index}}"></dropdown>
+								
+					<ul id="post-menu-{{$index}}" class="dropdown-content">
+						<li><a href="#" ng-click="editPost(post)">Edit</a></li>
+						<li class="divider"></li>
+						<li><a href="#" ng-click="deletePost(post)">Delete</a></li>
+					</ul>
+				<div class="card-image waves-effect waves-block waves-light">
+					<button class="btn right link-button" style="z-index:2" href="{{post.embed.url}}">Visit Link</button>	
+			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}">
+			 		
+				</div>
+				<div class="card-content post-content">
+				  	<span class="card-title grey-text text-darken-4 music-title">
+				  		<div class="row">
+				  			<div class="col s11">{{post.embed.title}}</div>
+				  			<div class="col s1"><i class="material-icons right">play_circle_filled</i></div>
+				  		</div>
+				  	</span>
+				  	<p>{{post.embed.description|limitTo:120}}<span ng-if="post.text.length > 120">...</span>
+				</div>
+				<div class="card-actions">
+					
+				</div>
+
+
+			  </div>
 			<div class="card x-small cyan lighten-2" ng-if="post.type == 'text'">
 				<dropdown id="{{$index}}"></dropdown>
 								
@@ -56,14 +84,14 @@
 						<li class="divider"></li>
 					<li><a href="#" ng-click="deletePost(post)">Delete</a></li>
 				</ul>
-				<div class="card-content activator">
+				<div class="card-content activator post-content ">
 				  	<span class="card-title activator grey-text text-darken-4 music-title">
 				  		<div class="row">
 				  			<div class="col s11">{{post.title}}</div>
 				  			<div class="col s1"><i class="material-icons right">expand_more</i></div>
 				  		</div>
 				  	</span>
-				  	<p>{{post.text|limitTo:360}}<span ng-if="post.text.length > 360">...</span>
+				  	<p>{{post.text|limitTo:300}}<span ng-if="post.text.length > 300">...</span>
 				</div>
 				<div class="card-reveal grey lighten-2">
 				  	<span class="card-title grey-text text-darken-4">{{post.title}}<i class="material-icons right">close</i></span>
@@ -82,7 +110,7 @@
 				<div class="card-image waves-effect waves-block waves-light">
 			 		<img class="activator" src="{{post.image}}">
 				</div>
-				<div class="card-content activator">
+				<div class="card-content activator post-content">
 				  	<span class="card-title activator grey-text text-darken-4 music-title">
 				  		<div class="row">
 				  			<div class="col s11">{{post.title}}</div>
@@ -105,7 +133,8 @@
 	  <i class="large material-icons">mode_edit</i>
 	</a>
 	<ul>
-	  <li><a class="btn-floating cyan darken-3 modal-trigger" href="#modal-text"><i class="material-icons">format_quote</i></a></li>
+	  <li><a class="btn-floating cyan darken-4 modal-trigger" href="#modal-text"><i class="material-icons">format_quote</i></a></li>
+	  <li><a class="btn-floating cyan darken-3 modal-trigger" href="#modal-link"><i class="material-icons">link</i></a></li>
 	  <li><a class="btn-floating cyan darken-2 modal-trigger" href="#modal-music"><i class="material-icons">music_note</i></a></li>
 	  <li><a class="btn-floating cyan darken-1 modal-trigger" href="#modal-image"><i class="material-icons">camera_alt</i></a></li>
 	</ul>
@@ -130,7 +159,18 @@
 	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addPost('music', newPost.music)">Add Post</button>
 		</div>
   </div>
-
+ 	<div id="modal-link" class="modal">
+		<div class="modal-content">
+			<h4>New Link Post</h4>
+					<div class="input-field">
+						<label for="linkImage">Link url</label>
+						<input type="text" id="linkUrl" ng-model="newPost.link.url">
+					</div>
+		</div>
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addPost('link', newPost.link)">Add Post</button>
+		</div>
+  </div>
  	<div id="modal-image" class="modal">
 		<div class="modal-content">
 			<h4>New Image Post</h4>

@@ -13,7 +13,7 @@ body {
   .card-reveal.post-card {
   	padding: 0 ;
   }
-  .post-card button {
+  .post-card button, .link-button {
   	position:absolute;
   	top: 5px;
   	right:5px;
@@ -26,7 +26,12 @@ body {
   	z-index: 0;
   }
   
-  
+  .music-title .row {
+      margin-bottom: 0;
+  }
+  .card.small .card-content.post-content {
+      padding-top: 10px;
+  }
   
   .post-menu-link {
   	text-shadow: 3px 0px rgba(0,0,0,.9);
@@ -44,7 +49,7 @@ body {
   }
   
   .card.x-small {
-      height:150px;
+      height:139.5px;
       position: relative;
   }
   .card.x-small .card-content {
