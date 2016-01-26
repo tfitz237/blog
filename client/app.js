@@ -1,92 +1,140 @@
-angular.module('app', ['angular-meteor','ngSanitize'])
-.controller('PostCtrl', PostCtrl)
-.directive('dropdown', dropdownDir);
-PostCtrl.$inject = ['$scope', '$meteor','$sce', '$http'];
+angular.module('app', ['angular-meteor','ngSanitize','accounts.ui'])
+//.controller('PostCtrl', PostCtrl)
+.directive('fePosts',fePosts)
+.directive('dropdown', dropdownDir)
+.directive('matBox', matBox);
+PostCtrl.$inject = ['$scope', '$meteor','$sce', '$reactive'];
+dropdownDir.$inject = ['$compile'];
 
-function PostCtrl($scope, $meteor,$sce, $http) {
-	
-	
-	$scope.posts = $meteor.collection(Posts);
-	console.log($scope.posts);
-	$scope.addPost = addPost;
-	$scope.embed = embed;
-	$scope.editPost = editPost;
-	$scope.deletePost = deletePost;
-	$scope.newPost = {};
-	function embed(embed) {
-		return $sce.trustAsHtml(embed.html);
+
+function fePosts() {
+	return {
+		restrict: 'E',
+		templateUrl: 'client/main.html',
+		controllerAs: 'ctrl',
+		controller: PostCtrl
+	};
+}
+
+function PostCtrl($scope, $meteor,$sce, $reactive) {
+	var self = this;
+	$reactive(self).attach($scope);
+	this.subscribe('posts', function(){}, {
+		onReady: go,
+		onStop: stop
+	});
 		
+	function go() {
+				 $(document).ready(function(){
+				$('.modal-trigger').leanModal();
+				$('.dropdown-button').dropdown();
+				$('.materialboxed').materialbox();
+	  		});
 		
-	}
-	
-	function addPost(type, post) {
-		if(post._id == undefined) {
-			post.type = type;
-			if(post.type == 'music' || post.type == 'link') {
-			$http({method: 'GET', url: 'https://api.embedly.com/1/oembed?key=afc044c2a50440c0bd8216adddc728f2&url='+post.url})
-				.then(function successCallBack(response) {
-				post.embed = response.data;
-				$scope.posts.push(post);
-				}, function errorCallback(response) {
-					console.log(response);
-				});
-				$scope.newPost[type] = {};
+		self.newPost = {};
+		self.postsEmbed = {};
+		self.query = {};
+		
+		self.helpers({
+			posts: () => {
+				return Posts.find({}, {sort: {createdAt: -1}});
+			}
+		});
+		
+		self.addPost = addPost;
+		self.editPost = editPost;
+		self.deletePost = deletePost;
+		self.toggleEmbed = toggleEmbed;
+		self.embed = embed;
+		self.showMenu = showMenu;
+		self.fullText = fullText;
+		
+		function toggleEmbed(id) {
+			if(typeof self.postsEmbed[id] === "undefined") {
+				var post = getPostById(id);
+				self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
 			} else {
-				$scope.posts.push(post);
+				self.postsEmbed[id] = undefined;
 			}
 		}
-		else {
-			if(post.type == 'music' || post.type =='link') {
-			$http({method: 'GET', url: 'https://api.embedly.com/1/oembed?key=afc044c2a50440c0bd8216adddc728f2&url='+post.url})
-				.then(function successCallBack(response) {
-				post.embed = response.data;
-				console.log(post.embed);
-				for (var i = 0; i < $scope.posts.length; i++) {
-					if($scope.posts[i]._id == post._id) {
-						$scope.posts[i] = post;
-						$scope.newPost[type] = {};
-					}
-				}
-				}, function errorCallback(response) {
-					console.log(response);
-				});
-
-			} else {
-				for (var i = 0; i < $scope.posts.length; i++) {
-					if($scope.posts[i]._id == post._id) {
-						$scope.posts[i] = post;
-						$scope.newPost[type] = {};
-					}
-				}
-			}
+		
+		function embed(index) {
+			return self.postsEmbed[index];
+			
 			
 		}
-	}
-	
-	function editPost(post) {
-		$scope.newPost[post.type] = post;
-		$('#modal-'+post.type).openModal();
 		
+		function addPost(type, id = undefined) {
+			if(typeof id === "undefined") {
+				var post = self.newPost[type];
+				Meteor.call('addPost', post);
+				$('.dropdown-button').dropdown();
+			} else {
+				var post = self.newPost[type];
+				Meteor.call('editPost', post);			
+			}
+				self.newPost[type] = {};
+				$('#modal-'+post.type).closeModal();
+				$('.lean-overlay').css('display','none');
+		}
 		
-	}
-	
-	function deletePost(post) {
+		function editPost(id) {
+			var post = getPostById(id);
+			self.newPost[post.type] = post;
+			$('#modal-'+post.type).openModal();	
+			
+		}
 		
-		$scope.posts.remove(post._id);
+		function deletePost(post) {
+			Meteor.call('deletePost', post);
+			
+		}
+		
+		function getPostById(id) {
+			for (var i in self.posts) {
+				if (self.posts[i]._id == id) {
+					return self.posts[i];
+				}
+				
+			}
+			
+			
+		}
+		
+		function showMenu(owner) {
+			return Meteor.userId() == owner;
+		}
+		
+		function fullText(post) {
+			self.fullText = post;
+			$('#modal-fulltext').openModal();
+			
+			
+		}
+	
 	}
-	
-	
-
+	function stop() {
+	}
 }
 
-function dropdownDir() {
+function dropdownDir($compile) {
 	return {
-		template: function(elem, attr) {
-			return '<a class="post-menu-link dropdown-button white-text" href="#" data-activates="post-menu-'+attr.id+'"><i class="material-icons">more_vert</i></a>';
-		}	
+		link: function(scope, elem, attr) {
+			var template = '<a class="post-menu-link dropdown-button white-text" href="#" data-activates="post-menu-'+attr.id+'"><i class="material-icons">more_vert</i></a>';
+			template = template + '				<ul id="post-menu-'+attr.id+'" class="dropdown-content"><li><a href="#" ng-click="ctrl.editPost(\''+attr.id+'\')">Edit</a></li><li class="divider"></li><li><a href="#" ng-click="ctrl.deletePost(\''+attr.id+'\')">Delete</a></li></ul>';
+			var linkFn = $compile(template);
+			var content = linkFn(scope);
+			elem.html(content);
+			$('.dropdown-button').dropdown();
+		}
 	};
-	
-	
-	
-	
 }
+
+function matBox() {
+	return {
+		link: function(scope,elem,attr){
+			$('.materialboxed').materialbox();
+		}
+	};
+}
+

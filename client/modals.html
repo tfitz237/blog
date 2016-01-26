@@ -1,0 +1,90 @@
+<body>
+    <section>
+ 	<div id="modal-music" class="modal">
+		<div class="modal-content">
+			<h4>Music Post</h4>
+					<div class="input-field">
+						<label class="active"  for="musicImage">Music url</label>
+						<input type="text" id="musicUrl" ng-model="ctrl.newPost.music.url">
+					</div>
+			<div class="input-field col s12">
+				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrl.newPost.music.text"></textarea>
+					<label class="active"  for="textarea1">Post content</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('music', ctrl.newPost.music)">Submit</button>
+		</div>
+  </div>
+ 	<div id="modal-link" class="modal">
+		<div class="modal-content">
+			<h4>Link Post</h4>
+					<div class="input-field">
+						<label class="active"  for="linkImage">Link url</label>
+						<input type="text" id="linkUrl" ng-model="ctrl.newPost.link.url">
+					</div>
+		</div>
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('link', ctrl.newPost.link)">Submit</button>
+		</div>
+  </div>
+ 	<div id="modal-image" class="modal">
+		<div class="modal-content">
+			<h4>Image Post</h4>
+			<div class="row">
+				<div class="col s12 m6">
+	  				<div class="input-field">
+						<input type="text" name="" id="imageTitle" ng-model="ctrl.newPost.image.title">
+						<label class="active"  for="imageTitle">Post Title</label>
+	 				</div>
+				</div>
+				<div class="col s12 m6">
+					<div class="input-field">
+						<label class="active"  for="imageImage">Image Url</label>
+						<input type="text" id="imageImage" ng-model="ctrl.newPost.image.image">
+					</div>
+				</div>
+			</div>
+			<div class="input-field col s12">
+				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrl.newPost.image.text"></textarea>
+					<label class="active"  for="textarea1">Post content</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('image',ctrl.newPost.image)">Submit</button>
+		</div>
+  </div>
+ 	<div id="modal-text" class="modal">
+		<div class="modal-content">
+			<h4>Text Post</h4>
+	  				<div class="input-field">
+						<input type="text" name="" id="imageTitle" ng-model="ctrl.newPost.text.title">
+						<label class="active"  for="imageTitle">Post Title</label>
+	 				</div>
+			<div class="input-field col s12">
+				<textarea id="textarea1" class="materialize-textarea" ng-model="ctrl.newPost.text.text"></textarea>
+					<label class="active"  for="textarea1">Post content</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('text',ctrl.newPost.text)">Submit</button>
+		</div>
+  </div>
+  	<div id="modal-fulltext" class="modal">
+		<div class="modal-content">
+			<h4>{{ctrl.fullText.title}}</h4>
+			<p>{{ctrl.fullText.text}}</p>
+			
+		<div class="modal-footer">
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="">Close</button>
+		</div>
+  </div>
+</section>
+<script>
+ $(document).ready(function(){
+	$('.modal-trigger').leanModal();
+	$('.dropdown-button').dropdown();
+	$('.materialboxed').materialbox();
+  });
+  </script>
+</body>

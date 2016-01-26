@@ -1,0 +1,23 @@
+	            <dropdown id="{{post._id}}" ng-show="ctrl.showMenu(post.owner)"></dropdown>
+				<div class="text-content">
+			 		<p>{{post.text|limitTo:330}}<span ng-show="post.text.length > 330">...</span></p>
+				</div>
+				<div class="card-content activator post-content">
+					<div class="post-content">
+						<div class="cyan darken-1 post-username  cyan-text text-accent-2">
+							<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
+						</div>
+						<div class="cyan lighten-1 content valign-wrapper">
+							<span class="center-align center grey-text text-darken-4 card-title activator valign">{{post.title}}</span>
+						</div>
+					</div>
+				  	<span class="card-title activator">
+				  		<button class="btn-floating post-button darken-2 cyan "><i class="material-icons">expand_more</i></button>
+				  	</span>
+				  	
+				</div>
+				<div class="card-reveal cyan darken-4 post-card">
+				  	<button class="btn-floating card-title post-button close-button darken-2 cyan "><i class="material-icons">close</i></button>
+				  	<p class="text-content">{{post.text|limitTo:400}}</p>
+				  	<button class="btn-floating text-button close-button darken-2 cyan modal-trigger" ng-click="ctrl.fullText(post)"><i class="material-icons">fullscreen</i></button>
+				</div>

@@ -1,0 +1,23 @@
+	            <dropdown id="{{post._id}}" ng-if="ctrl.showMenu(post.owner)"></dropdown>
+				<div class="card-image waves-effect waves-block waves-light post-image">
+			 		<img class="activator" src="{{post.image}}">
+				</div>
+				<div class="card-content activator post-content">
+					<div class="post-content">
+						<div class="cyan darken-1 post-username cyan-text text-accent-2">
+							<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
+						</div>
+						<div class="cyan lighten-1 content">
+							<span class="center-align center grey-text text-darken-4 card-title activator ">{{post.title}}</span>
+							<p class="grey-text text-darken-2">{{post.text|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>
+						</div>
+					</div>
+				  	<span class="card-title activator">
+				  		<button class="btn-floating post-button darken-2 cyan "><i class="material-icons">expand_more</i></button>
+				  	</span>
+				  	
+				</div>
+				<div class="card-reveal cyan darken-4 post-card">
+				  	<button class="btn-floating card-title post-button close-button darken-2 cyan "><i class="material-icons">close</i></button>
+				  	<img class="materialboxed embed" src="{{post.image}}" mat-box>
+				</div>

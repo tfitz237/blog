@@ -1,0 +1,21 @@
+			<dropdown id="{{post._id}}" ng-if="ctrl.showMenu(post.owner)"></dropdown>
+				<div class="card-image waves-effect waves-block waves-light post-image">
+					<a href="{{post.embed.url}}" target="_blank">
+			 			<img class="responsive-img" src="{{post.embed.thumbnail_url}}">
+			 		</a>
+				</div>
+				
+				<div class="card-content post-content">
+										<a class="btn-floating post-button darken-2 cyan" style="z-index:2" href="{{post.embed.url}}" target="_blank"><i class="material-icons">link</i></a>	
+					<div class="post-content">
+						<div class="cyan darken-1 post-username cyan-text text-accent-2">
+							<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
+						</div>
+						<div class="content cyan lighten-1">
+							<span class="center-align center grey-text text-darken-4 card-title">{{post.embed.title}}</span>
+							<p class="grey-text text-darken-2 card-text">{{post.embed.description|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>
+						</div>
+
+					</div>
+				</div>
+
