@@ -5,15 +5,15 @@
 			<h4>Music Post</h4>
 					<div class="input-field">
 						<label class="active"  for="musicImage">Music url</label>
-						<input type="text" id="musicUrl" ng-model="ctrl.newPost.music.url">
+						<input type="text" id="musicUrl" ng-model="ctrlPost.newPost.music.url">
 					</div>
 			<div class="input-field col s12">
-				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrl.newPost.music.text"></textarea>
+				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrlPost.newPost.music.text"></textarea>
 					<label class="active"  for="textarea1">Post content</label>
 			</div>
 		</div>
 		<div class="modal-footer">
-	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('music', ctrl.newPost.music)">Submit</button>
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrlPost.fn.addPost('music')">Submit</button>
 		</div>
   </div>
  	<div id="modal-link" class="modal">
@@ -21,11 +21,11 @@
 			<h4>Link Post</h4>
 					<div class="input-field">
 						<label class="active"  for="linkImage">Link url</label>
-						<input type="text" id="linkUrl" ng-model="ctrl.newPost.link.url">
+						<input type="text" id="linkUrl" ng-model="ctrlPost.newPost.link.url">
 					</div>
 		</div>
 		<div class="modal-footer">
-	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('link', ctrl.newPost.link)">Submit</button>
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrlPost.fn.addPost('link')">Submit</button>
 		</div>
   </div>
  	<div id="modal-image" class="modal">
@@ -34,46 +34,46 @@
 			<div class="row">
 				<div class="col s12 m6">
 	  				<div class="input-field">
-						<input type="text" name="" id="imageTitle" ng-model="ctrl.newPost.image.title">
+						<input type="text" name="" id="imageTitle" ng-model="ctrlPost.newPost.image.title">
 						<label class="active"  for="imageTitle">Post Title</label>
 	 				</div>
 				</div>
 				<div class="col s12 m6">
 					<div class="input-field">
 						<label class="active"  for="imageImage">Image Url</label>
-						<input type="text" id="imageImage" ng-model="ctrl.newPost.image.image">
+						<input type="text" id="imageImage" ng-model="ctrlPost.newPost.image.image">
 					</div>
 				</div>
 			</div>
 			<div class="input-field col s12">
-				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrl.newPost.image.text"></textarea>
+				<textarea id="textarea1" class="materialize-textarea" length="1000" ng-model="ctrlPost.newPost.image.text"></textarea>
 					<label class="active"  for="textarea1">Post content</label>
 			</div>
 		</div>
 		<div class="modal-footer">
-	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('image',ctrl.newPost.image)">Submit</button>
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrlPost.fn.addPost('image')">Submit</button>
 		</div>
   </div>
  	<div id="modal-text" class="modal">
 		<div class="modal-content">
 			<h4>Text Post</h4>
 	  				<div class="input-field">
-						<input type="text" name="" id="imageTitle" ng-model="ctrl.newPost.text.title">
+						<input type="text" name="" id="imageTitle" ng-model="ctrlPost.newPost.text.title">
 						<label class="active"  for="imageTitle">Post Title</label>
 	 				</div>
 			<div class="input-field col s12">
-				<textarea id="textarea1" class="materialize-textarea" ng-model="ctrl.newPost.text.text"></textarea>
+				<textarea id="textarea1" class="materialize-textarea" ng-model="ctrlPost.newPost.text.text"></textarea>
 					<label class="active"  for="textarea1">Post content</label>
 			</div>
 		</div>
 		<div class="modal-footer">
-	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrl.addPost('text',ctrl.newPost.text)">Submit</button>
+	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="ctrlPost.fn.addPost('text')">Submit</button>
 		</div>
   </div>
   	<div id="modal-fulltext" class="modal">
 		<div class="modal-content">
-			<h4>{{ctrl.fullText.title}}</h4>
-			<p>{{ctrl.fullText.text}}</p>
+			<h4>{{ctrlPost.fullText.title}}</h4>
+			<p>{{ctrlPost.fullText.text}}</p>
 			
 		<div class="modal-footer">
 	  		<button class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="">Close</button>

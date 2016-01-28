@@ -1,4 +1,4 @@
-	            <dropdown id="{{post._id}}" ng-if="ctrl.showMenu(post.owner)"></dropdown>
+	            <dropdown id="{{post._id}}" ng-if="ctrlPost.fn.showMenu(post.owner)"></dropdown>
 				<div class="card-image waves-effect waves-block waves-light post-image">
 			 		<img class="activator" src="{{post.image}}">
 				</div>
@@ -7,6 +7,7 @@
 						<div class="cyan darken-1 post-username cyan-text text-accent-2">
 							<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
 						</div>
+						<fe-tag></fe-tag>
 						<div class="cyan lighten-1 content">
 							<span class="center-align center grey-text text-darken-4 card-title activator ">{{post.title}}</span>
 							<p class="grey-text text-darken-2">{{post.text|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>

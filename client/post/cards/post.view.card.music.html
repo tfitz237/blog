@@ -1,12 +1,13 @@
-                <dropdown id="{{post._id}}" ng-if="ctrl.showMenu(post.owner)"></dropdown>
+                <dropdown id="{{post._id}}" ng-if="ctrlPost.fn.showMenu(post.owner)"></dropdown>
 				<div class="card-image waves-effect waves-block waves-light post-image">
-			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}" ng-click="ctrl.toggleEmbed(post._id)">
+			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}" ng-click="ctrlPost.fn.toggleEmbed(post._id)">
 				</div>
-				<div class="card-content activator post-content" ng-click="ctrl.toggleEmbed(post._id)">
+				<div class="card-content activator post-content" ng-click="ctrlPost.fn.toggleEmbed(post._id)">
 						<div class="post-content">
 							<div class="cyan darken-1 post-username cyan-text text-accent-2">
 								<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
 							</div>
+							<fe-tag></fe-tag>
 							<div ng-class="{'valign-wrapper' : (post.text == null || post.text == '')}" class="cyan lighten-1 content">
 								<span ng-class="{ 'valign center-align center' : (post.text == null || post.text == '')}" class="grey-text text-darken-4 card-title activator">{{post.embed.title}}</span>
 						  		<p class="grey-text text-darken-2">{{post.text|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>
@@ -19,8 +20,8 @@
 				  	</span>
 				</div>
 				<div class="card-reveal cyan darken-4 post-card">
-				  	<button class="btn-floating card-title post-button close-button darken-2 cyan " ng-click="ctrl.toggleEmbed(post._id)"><i class="material-icons">close</i></button>
-				  	<div ng-bind-html="ctrl.embed(post._id)" class="embed">
+				  	<button class="btn-floating card-title post-button close-button darken-2 cyan " ng-click="ctrlPost.fn.toggleEmbed(post._id)"><i class="material-icons">close</i></button>
+				  	<div ng-bind-html="ctrlPost.fn.embed(post._id)" class="embed">
 					</div>
 
 				</div>

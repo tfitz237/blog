@@ -1,0 +1,21 @@
+<main>
+	<div class="row">
+		<div class="col s12 m6 l4 xl3" ng-repeat="post in ctrlPost.posts">
+			<div class="card small cyan darken-4 white-text" ng-include="'client/post/cards/post.view.card.'+post.type+'.html'">
+			</div>
+		</div>
+	</div>
+
+	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;" ng-show="$root.currentUser">
+		<a class="btn-floating btn-large cyan darken-4">
+	  		<i class="large material-icons">mode_edit</i>
+		</a>
+		<ul>
+		  <li><a class="btn-floating cyan darken-4 modal-trigger" href="#modal-text"><i class="material-icons">format_quote</i></a></li>
+		  <li><a class="btn-floating cyan darken-3 modal-trigger" href="#modal-link"><i class="material-icons">link</i></a></li>
+		  <li><a class="btn-floating cyan darken-2 modal-trigger" href="#modal-music"><i class="material-icons">music_note</i></a></li>
+		  <li><a class="btn-floating cyan darken-1 modal-trigger" href="#modal-image"><i class="material-icons">camera_alt</i></a></li>
+		</ul>
+  	</div>
+</main>
+
