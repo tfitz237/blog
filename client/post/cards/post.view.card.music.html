@@ -2,13 +2,13 @@
 				<div class="card-image waves-effect waves-block waves-light post-image">
 			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}" ng-click="ctrlPost.fn.toggleEmbed(post._id)">
 				</div>
-				<div class="card-content activator post-content" ng-click="ctrlPost.fn.toggleEmbed(post._id)">
+				<div class="card-content post-content">
 						<div class="post-content">
 							<div class="cyan darken-1 post-username cyan-text text-accent-2">
 								<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
 							</div>
 							<fe-tag></fe-tag>
-							<div ng-class="{'valign-wrapper' : (post.text == null || post.text == '')}" class="cyan lighten-1 content">
+							<div ng-class="{'valign-wrapper' : (post.text == null || post.text == '')}" class="cyan lighten-1 content activator"  ng-click="ctrlPost.fn.toggleEmbed(post._id)">
 								<span ng-class="{ 'valign center-align center' : (post.text == null || post.text == '')}" class="grey-text text-darken-4 card-title activator">{{post.embed.title}}</span>
 						  		<p class="grey-text text-darken-2">{{post.text|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>
 						  	</div>

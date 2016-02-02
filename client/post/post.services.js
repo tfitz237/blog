@@ -9,7 +9,7 @@ function svcPost() {
 
     
     function add(type,post) {
-		if(typeof post._id === "undefined") {
+		if (typeof post._id === "undefined") {
             post.type = type;
 			Meteor.call('setPost', false, post);
 			$('.dropdown-button').dropdown();

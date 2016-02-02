@@ -10,44 +10,85 @@ function feTag() {
 		controllerAs: 'ctrlTag',
 		controller: TagCtrl,
 		link: function (scope, element, attrs) {
-		    element.addClass('cyan darken-2 post-tags post-tagBox');
+		    element.addClass('post-tags');
 		    
 		}
 	};
 }
 
-TagCtrl.$inject= ['$scope', '$element', '$attrs', '$meteor', '$reactive'];
-function TagCtrl($scope, $element, $attrs, $meteor, $reactive) {
+TagCtrl.$inject= ['$scope', '$element', '$attrs', '$meteor', '$reactive', 'svcTag'];
+function TagCtrl($scope, $element, $attrs, $meteor, $reactive, svcTag) {
 	var self = this;
 
 	$reactive(self).attach($scope);
-	self.postId = $scope.post._id;
-	self.postOwner = $scope.post.owner;
-	self.subscribe('tags');
-	self.tags = [
-	    {"postId" : "zzgZzcfYuSBxjS5ye",'title':'lol'},
-	    {"postId" : "zzgZzcfYuSBxjS5ye",'title':'yeahright'},
-	    {"postId" : "ErD5yMLSxpqupnHuG", 'title':'thisisit'},
-	    
-	];
-	self.getTags = getTags;
-    self.showMenu = showMenu;	
-	console.log(self);	
-	
-	function getTags() {
-	    var tags = [];
-	    for (var i = 0; i < self.tags.length; i++) {
-	        if(self.tags[i].postId == self.postId) {
-	            tags.push(self.tags[i]);
-	        }
-	    }
-	    return tags;
-	}
-	
+	self.post = $scope.post;
+	self.fn = {
+		showMenu: showMenu,
+		showTagModal: showTagModal,
+		showTagMenu: showTagMenu,
+		addTagModal: addTagModal,
+		openTagMenu: openTagMenu,
+		delTag: delTag,
+		voteTag: voteTag,
+		addToPost: addToPost,
+		totalVotes: totalVotes
+	};
+	self.addButton = "add_box";
+	self.tagModal = false;
+	self.newTag = '';
+	self.tagMenu = {
+		view: false
+	};
+
 	function showMenu() {
-	    return Meteor.userId() == self.postOwner;
-	    
+	    return svcTag.countVotesOnPost(self.post) <= 5;
+	}
+	function showTagMenu() {
+		return self.tagMenu.view == true;
+	}
+	function showTagModal() {
+		return self.tagModal == true; 
+	}
+	
+	function addTagModal() {
+	 	self.tagModal = (self.tagModal == true) ? false : true; 
+	 	self.addButton= (self.tagModal == true) ? "indeterminate_check_box" : "add_box";
+	}
+	function openTagMenu(tag) {
+		if (self.tagMenu.view) {
+			self.tagMenu.view = false;
+			self.tagMenu.post = {};
+			self.tagMenu.tag = {};
+		} else {
+			self.tagMenu.view = true;
+			self.tagMenu.post = self.post;
+			self.tagMenu.tag = tag;
+		}
 	}
 	
 	
+	function addToPost() {
+		svcTag.addToPost(self.post, self.newTag);
+		self.tagModal = false;
+		self.newTag = '';
+		self.addButton = "add_box";
+	}
+	
+	function voteTag() {
+		svcTag.voteToPost(self.tagMenu.post, self.tagMenu.tag);
+		openTagMenu();
+	}
+	
+	function delTag() {
+		svcTag.delFromPost(self.tagMenu.post, self.tagMenu.tag);
+		openTagMenu();
+	}
+	
+	function totalVotes(post) {
+		var total = 0;
+		for (var i in post.tags) {
+			total += post.tags[i].votes;
+		}
+		return total;
+	} 
 }

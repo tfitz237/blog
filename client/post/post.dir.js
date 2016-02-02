@@ -42,10 +42,11 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 		embed : embed,
 		showMenu : showMenu,
 		fullText : fullText,
+		totalVotes : totalVotes
 	};
 		
 	function toggleEmbed(id) {
-		if(typeof self.postsEmbed[id] === "undefined") {
+		if (typeof self.postsEmbed[id] === "undefined") {
 			var post = getPostById(id);
 			self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
 		} else {
@@ -87,6 +88,14 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 			$('#modal-fulltext').openModal();
 		}
 
+
+	function totalVotes(post) {
+		var total = 0;
+		for (var i in post.tags) {
+			total += post.tags[i].votes;
+		}
+		return total;
+	} 
 }
 
 function matBox() {

@@ -11,7 +11,7 @@ function deletePost(id) {
         var post = Posts.findOne({_id:id});
         if (! Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
-        } else if(Meteor.userId() == post.owner) {
+        } else if (Meteor.userId() == post.owner) {
             Posts.remove(post);
         }
 
@@ -29,19 +29,21 @@ function setPost(edit, post) {
             title: post.title,
             updatedAt: new Date(),
             owner: Meteor.userId(),
-            username: Meteor.user().username
+            username: Meteor.user().username,
         };   
+        rtn.tags = (edit) ? post.tags : {};
         rtn.createdAt = (edit) ? post.createdAt : new Date();
         switch (post.type) {
             case 'music':
             case 'link':
                 rtn.url = post.url;
                 var oldurl = (edit) ? Posts.findOne({_id: post._id}).url : null;
-                if(!edit || (post.url != oldurl)) {
+                if (!edit || (post.url != oldurl)) {
                     HTTP.call("GET", 'https://api.embedly.com/1/oembed', {params: {key:'afc044c2a50440c0bd8216adddc728f2',url:post.url}},
                         function(error,result) {
-                            if(!error) {
+                            if (!error) {
                                 rtn.embed = result.data;
+                                rtn.title = result.title;
                                 (edit) ? Posts.update(post._id, rtn) : Posts.insert(rtn);
                             }
                         }
