@@ -25,6 +25,7 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 	});
 		
 	self.newPost = {};
+	self.tagList = ['test'];
 	self.postsEmbed = {};
 	self.query = {};
 		
@@ -38,22 +39,22 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 		addPost: addPost,
 		editPost: editPost,
 		deletePost : deletePost,
-		toggleEmbed : toggleEmbed,
+		openEmbed : openEmbed,
+		closeEmbed : closeEmbed,
 		embed : embed,
 		showMenu : showMenu,
 		fullText : fullText,
 		totalVotes : totalVotes
 	};
 		
-	function toggleEmbed(id) {
-		if (typeof self.postsEmbed[id] === "undefined") {
-			var post = getPostById(id);
-			self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
-		} else {
-			self.postsEmbed[id] = undefined;
-		}
+	function openEmbed(id) {
+		var post = getPostById(id);
+		self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
+
 	}
-		
+	function closeEmbed(id) {
+		self.postsEmbed[id] = '';
+	}	
 	function embed(index) {
 		return self.postsEmbed[index];
 	}

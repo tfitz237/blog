@@ -40,7 +40,7 @@ function incPop(post, tag) {
     if (! Meteor.userId()) {
         throw new Meteor.Error('not-authorized');
     } else {
-        if (!ownsTagOnPost(post,tag) && countVotesOnPost(post) <= 5 && !hasVotedOnTag(tag)) {
+        if (!ownsTagOnPost(post,tag) && countVotesOnPost(post) < 5 && !hasVotedOnTag(tag)) {
             Posts.update({_id: post._id, "tags._id": tag._id}, {$inc: {"tags.$.votes": 1}, $push: {"tags.$.users": Meteor.userId() }})
         }
         

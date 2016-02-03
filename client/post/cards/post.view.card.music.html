@@ -1,6 +1,6 @@
                 <dropdown id="{{post._id}}" ng-if="ctrlPost.fn.showMenu(post.owner)"></dropdown>
 				<div class="card-image waves-effect waves-block waves-light post-image">
-			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}" ng-click="ctrlPost.fn.toggleEmbed(post._id)">
+			 		<img class="activator responsive-img" src="{{post.embed.thumbnail_url}}" ng-click="ctrlPost.fn.openEmbed(post._id)">
 				</div>
 				<div class="card-content post-content">
 						<div class="post-content">
@@ -8,7 +8,7 @@
 								<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
 							</div>
 							<fe-tag></fe-tag>
-							<div ng-class="{'valign-wrapper' : (post.text == null || post.text == '')}" class="cyan lighten-1 content activator"  ng-click="ctrlPost.fn.toggleEmbed(post._id)">
+							<div ng-class="{'valign-wrapper' : (post.text == null || post.text == '')}" class="cyan lighten-1 content activator"  ng-click="ctrlPost.fn.openEmbed(post._id)">
 								<span ng-class="{ 'valign center-align center' : (post.text == null || post.text == '')}" class="grey-text text-darken-4 card-title activator">{{post.embed.title}}</span>
 						  		<p class="grey-text text-darken-2">{{post.text|limitTo:120}}<span ng-if="post.text.length > 120">...</span></p>
 						  	</div>
@@ -16,11 +16,11 @@
 						</div>
 
 				  	<span class="card-title activator">
-						<button class="post-button btn-floating cyan darken-2"><i class="material-icons right">play_circle_filled</i></button>
+						<button class="post-button btn-floating cyan darken-2" ng-click="ctrlPost.fn.openEmbed(post._id)"><i class="material-icons right">play_circle_filled</i></button>
 				  	</span>
 				</div>
 				<div class="card-reveal cyan darken-4 post-card">
-				  	<button class="btn-floating card-title post-button close-button darken-2 cyan " ng-click="ctrlPost.fn.toggleEmbed(post._id)"><i class="material-icons">close</i></button>
+				  	<button class="btn-floating card-title post-button close-button darken-2 cyan " ng-click="ctrlPost.fn.closeEmbed(post._id)"><i class="material-icons">close</i></button>
 				  	<div ng-bind-html="ctrlPost.fn.embed(post._id)" class="embed">
 					</div>
 

@@ -2,13 +2,15 @@
     <a href="#" class="cyan-text text-accent-1" ng-show="ctrlTag.fn.showMenu()" ng-click="ctrlTag.fn.addTagModal()">
         <i class="material-icons tiny center-icon">{{ctrlTag.addButton}}</i>
     </a>
-    <span>({{ctrlTag.fn.totalVotes(ctrlTag.post)}})</span>
+    <a href="#" class="cyan-text text-accent-1" ng-show="ctrlTag.fn.totalVotes(post) > 0" ng-click="ctrlTag.fn.viewTags()">
+        ({{ctrlTag.fn.totalVotes(ctrlTag.post)}})
+    </a>
     <a href="#" class="cyan-text text-accent-2 post-tag" ng-repeat="tag in ctrlTag.post.tags | limitTo:3| orderBy: ['-votes','-createdAt']" ng-click="ctrlTag.fn.openTagMenu(tag)">
         #{{tag.name}}
     </a>
     <div class="cyan white-text newTag darken-2" ng-show="ctrlTag.fn.showTagModal()">
         <form ng-submit="ctrlTag.fn.addToPost()">
-	        <input type="text" ng-model="ctrlTag.newTag" placeholder="new tag">
+	        <input type="text" ng-model="ctrlTag.newTag" placeholder="new tag" maxlength="25" restrict="[^a-z0-9\-\s]">
 	    </form>
     </div>
 </div>

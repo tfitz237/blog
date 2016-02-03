@@ -1,7 +1,23 @@
 angular.module('app')
 
-.directive('feTag', feTag);
+.directive('feTag', feTag)
+.directive('restrict', restrict);
 
+restrict.$inject = ['$parse'];
+function restrict($parse) {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, iElement, iAttrs, controller) {
+            scope.$watch(iAttrs.ngModel, function(value) {
+                if (!value) {
+                    return;
+                }
+                $parse(iAttrs.ngModel).assign(scope, value.toLowerCase().replace(new RegExp(iAttrs.restrict, 'g'), '').replace(/\s+/g, '-'));
+            });
+        }
+    };
+}
 
 function feTag() {
 	return {
@@ -31,7 +47,8 @@ function TagCtrl($scope, $element, $attrs, $meteor, $reactive, svcTag) {
 		delTag: delTag,
 		voteTag: voteTag,
 		addToPost: addToPost,
-		totalVotes: totalVotes
+		totalVotes: totalVotes,
+		viewTags: viewTags,
 	};
 	self.addButton = "add_box";
 	self.tagModal = false;
@@ -41,7 +58,7 @@ function TagCtrl($scope, $element, $attrs, $meteor, $reactive, svcTag) {
 	};
 
 	function showMenu() {
-	    return svcTag.countVotesOnPost(self.post) <= 5;
+	    return (svcTag.countVotesOnPost(self.post) < 5 && Meteor.userId());
 	}
 	function showTagMenu() {
 		return self.tagMenu.view == true;
@@ -49,6 +66,7 @@ function TagCtrl($scope, $element, $attrs, $meteor, $reactive, svcTag) {
 	function showTagModal() {
 		return self.tagModal == true; 
 	}
+	
 	
 	function addTagModal() {
 	 	self.tagModal = (self.tagModal == true) ? false : true; 
@@ -91,4 +109,11 @@ function TagCtrl($scope, $element, $attrs, $meteor, $reactive, svcTag) {
 		}
 		return total;
 	} 
+	
+	function viewTags() {
+		$scope.$parent.$parent.ctrlPost.tagList = self.post.tags;
+		$('#modal-'+'tagList').openModal();
+		
+		
+	}
 }

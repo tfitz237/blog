@@ -19,7 +19,7 @@ function svcTag() {
     
 
     function delFromPost(post, tag) {
-        Meteor.call('delTagFromPost', post, tag);
+        Meteor.call('delTagFromPost', tag);
         
     }    
     
