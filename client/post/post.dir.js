@@ -12,8 +12,8 @@ function fePosts() {
 	};
 }
 
-PostCtrl.$inject = ['$scope', '$meteor','$sce', '$reactive','svcPost'];
-function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
+PostCtrl.$inject = ['$scope', '$meteor','$sce', '$reactive','svcPost', 'svcSort'];
+function PostCtrl($scope, $meteor,$sce, $reactive, svcPost, svcSort) {
 	var self = this;
 	$reactive(self).attach($scope);
 	self.subscribe('posts');
@@ -28,7 +28,6 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 	self.tagList = ['test'];
 	self.postsEmbed = {};
 	self.query = {};
-		
 	self.helpers({
 		posts: () => {
 			return Posts.find({}, {sort: {createdAt: -1}});
@@ -44,13 +43,12 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 		embed : embed,
 		showMenu : showMenu,
 		fullText : fullText,
-		totalVotes : totalVotes
+		sortOrder: sortOrder
 	};
 		
 	function openEmbed(id) {
 		var post = getPostById(id);
 		self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
-
 	}
 	function closeEmbed(id) {
 		self.postsEmbed[id] = '';
@@ -73,30 +71,26 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost) {
 	}
 		
 	function getPostById(id) {
-			for (var i in self.posts) {
-				if (self.posts[i]._id == id) {
-					return self.posts[i];
-				}
+		for (var i in self.posts) {
+			if (self.posts[i]._id == id) {
+				return self.posts[i];
 			}
 		}
+	}
 		
 	function showMenu(owner) {
-			return Meteor.userId() == owner;
-		}
+		return Meteor.userId() == owner;
+	}
 		
 	function fullText(post) {
-			self.fullText = post;
-			$('#modal-fulltext').openModal();
-		}
+		self.fullText = post;
+		$('#modal-fulltext').openModal();
+	}
 
 
-	function totalVotes(post) {
-		var total = 0;
-		for (var i in post.tags) {
-			total += post.tags[i].votes;
-		}
-		return total;
-	} 
+	function sortOrder(post) {
+		return svcSort.sort(post);
+	}
 }
 
 function matBox() {
