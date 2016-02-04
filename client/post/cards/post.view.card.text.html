@@ -1,9 +1,10 @@
 	            <dropdown id="{{post._id}}" ng-show="ctrlPost.fn.showMenu(post.owner)"></dropdown>
-				<div class=" activator">
-			 		<p class="text-content">{{post.text|limitTo:330}}<span ng-show="post.text.length > 330">...</span></p>
+				<div class=" activator card-image post-image">
+					<p class="text-content">{{post.text|limitTo:330}}<span ng-show="post.text.length > 330">...</span></p>
 				</div>
 				<div class="card-content post-content">
 					<div class="post-content">
+
 						<div class="cyan darken-1 post-username  cyan-text text-accent-2 activator">
 							<i class="tiny material-icons center-icon">account_box</i> {{post.username}}
 						</div>
