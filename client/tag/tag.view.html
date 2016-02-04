@@ -15,8 +15,12 @@
     </div>
 </div>
 
-<div class="tagMenu collection" ng-show="ctrlTag.fn.showTagMenu()">
-    <a href="#" class="collection-item center-align cyan darken-2 cyan-text text-accent-2 tooltipped" ng-click="ctrlTag.fn.openTagMenu()" data-position="bottom" data-tooltipped="Close Menu">#{{ctrlTag.tagMenu.tag.name}}</a>
-    <a href="#" class="collection-item" ng-click="ctrlTag.fn.voteTag()"><i class="material-icons tiny">arrow_upward</i> Vote</a>
-    <a href="3" class="collection-item" ng-click="ctrlTag.fn.delTag()" ng-show="ctrlTag.tagMenu.tag.owner == $root.currentUser._id"><i class="material-icons tiny">delete</i> Delete</a>
+<div class="tagMenu collection " ng-show="ctrlTag.fn.showTagMenu() ">
+    <span class="collection-item cyan darken-2">
+        <a href="#" class="center-align cyan-text text-accent-2" data-position="bottom">#{{ctrlTag.tagMenu.tag.name}}</a>
+        <a href="#" class="secondary-content tooltipped grey-text text-darken-2 cyan darken-2" ng-click="ctrlTag.fn.openTagMenu()"  data-tooltipped="Close Menu"><i class="tiny material-icons">close</i></a>
+    </span>
+
+    <a href="#" class="collection-item" ng-click="ctrlTag.fn.voteTag()" ng-show="ctrlTag.tagMenu.tag.owner != $root.currentUser._id"><i class="material-icons tiny">arrow_upward</i> Vote</a>
+    <a href="3" class="collection-item" ng-click="ctrlTag.fn.delTag()"  ng-show="ctrlTag.tagMenu.tag.owner == $root.currentUser._id"><i class="material-icons tiny">delete</i> Delete</a>
 </div>

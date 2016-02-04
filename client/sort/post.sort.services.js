@@ -1,25 +1,17 @@
 angular.module('app')
 .service('svcSort', svcSort);
 
+svcSort.$inject = [];
 function svcSort() {
 	var svc = this;
-
 	svc.sort = sortOrder;
+	svc.sort2 = sortOrder2;
 	svc.toggleOption = sortToggle;
-	svc.toggleDirection = sortDirToggle;
-	svc.direction = true;
-	svc.option = 'high';
+	svc.option = 'pop';
 
-
-	svc.getDirection = function() { return svc.direction; };
 	svc.getOption = function() { return svc.option; };
 	
 
-	function sortDirToggle() {
-		svc.direction = (svc.direction) ? false : true;
-
-		return svc.direction;
-	}
 
 	function totalVotes(post) {
 		var total = 0;
@@ -41,42 +33,42 @@ function svcSort() {
 
 	function sortToggle() {
 		switch (svc.option) {
-			case 'high':
-				svc.option = 'low';
-				break;
-			case 'low':
-				svc.option = 'pop';
-				break;
 			case 'pop':
+				svc.option = 'high';
+				break;
+			case 'high':
 				svc.option = 'new';
 				break;
 			case 'new':
-				svc.option = 'high';
+				svc.option = 'pop';
 				break;
 		}
+		
 		return svc.option;
 	}
 
 	function sortOrder(post) {
+		var answer;
 		switch (svc.option) {
 			case 'high':
-				svc.direction = true;
-				return totalVotes(post);
-				break;
-			case 'low':
-				svc.direction = false;
-				return totalVotes(post);
+				answer = totalVotes(post);
 				break;
 			case 'pop':
-				svc.direction = true;
-				return topVotes(post);
+				answer = topVotes(post);
 				break;
 			case 'new':
-				svc.direction = true;
-				return null;
+				answer = null;
+				break;
 		}
+		return answer;
 	} 
-
+	function sortOrder2(post) {
+		var answer;
+		if(svc.option == 'pop') {
+			answer = totalVotes(post);
+		}
+		return answer;
+	} 
 
 
 

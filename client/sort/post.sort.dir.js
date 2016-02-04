@@ -18,13 +18,9 @@ function SortCtrl(svcSort) {
 
 	self.toggleOption = toggleOption;
 	self.sortOption = svcSort.getOption();
-	self.sortDirection = (svcSort.getDirection()) ? 'arrow_downward' : 'arrow_upward';
-
+	
 	function toggleOption() {
 		self.sortOption =  svcSort.toggleOption();
-	}
-	function toggleDirection() {
-		self.sortDirection =  (svcSort.toggleDirection()) ? 'arrow_downward' : 'arrow_upward';	
 	}
 
 

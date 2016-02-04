@@ -95,8 +95,8 @@ body {
   }
   .post-tag {
       padding-right:5px;
+      font-size:12px;
   }
-
   .post-menu-link {
   	text-shadow: 3px 0px rgba(0,0,0,.9);
   	position:absolute;
@@ -119,6 +119,13 @@ body {
   }
   .tagMenu .collection-item {
       padding: 5px;
+      display: block;
+  }
+  .tagMenu .collection-item .secondary-content {
+      height: 25px;
+  }
+  .tagMenu .collection-item .secondary-content i {
+      margin-top: 4px;
   }
   .newTag input {
       margin-bottom: 0;

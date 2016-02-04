@@ -28,6 +28,8 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost, svcSort) {
 	self.tagList = ['test'];
 	self.postsEmbed = {};
 	self.query = {};
+	self.sortDir = true;
+	
 	self.helpers({
 		posts: () => {
 			return Posts.find({}, {sort: {createdAt: -1}});
@@ -43,9 +45,10 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost, svcSort) {
 		embed : embed,
 		showMenu : showMenu,
 		fullText : fullText,
-		sortOrder: sortOrder
+		sortOrder: sortOrder,
+		sortOrder2: sortOrder2,
 	};
-		
+	
 	function openEmbed(id) {
 		var post = getPostById(id);
 		self.postsEmbed[id] = $sce.trustAsHtml(post.embed.html);
@@ -87,9 +90,11 @@ function PostCtrl($scope, $meteor,$sce, $reactive, svcPost, svcSort) {
 		$('#modal-fulltext').openModal();
 	}
 
-
 	function sortOrder(post) {
 		return svcSort.sort(post);
+	}
+	function sortOrder2(post) {
+		return svcSort.sort2(post);
 	}
 }
 

@@ -31,7 +31,7 @@ function setPost(edit, post) {
             owner: Meteor.userId(),
             username: Meteor.user().username,
         };   
-        rtn.tags = (edit) ? post.tags : {};
+        rtn.tags = (edit) ? post.tags : [];
         rtn.createdAt = (edit) ? post.createdAt : new Date();
         switch (post.type) {
             case 'music':
